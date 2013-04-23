@@ -1,0 +1,41 @@
+<style>
+    #addDir_container #speichern{margin-left: 0;}
+    #addDir_container input.textbox{margin-bottom: 10px;}
+    #addHeadline{margin-bottom: 20px; cursor: pointer;}
+    #form_container{display: none;}
+</style>
+
+<script>
+    $(document).ready(function() {
+        <?php if($this->forminput): ?>
+                $('#form_container').show();
+        <?php endif; ?>
+    });
+</script>
+
+<fieldset class="lwadminform">
+    <legend class="lwadminform">DirectoryObserver</legend>
+    <h3 id="addHeadline" onclick="if($('#form_container').is(':visible')){$('#form_container').slideUp();}else{$('#form_container').slideDown();};">Neues Verzeichnis hinzuf&uuml;gen +</h3>
+    <div id="form_container">
+        <form action="<?php echo $this->url; ?>" Method="POST">
+            <div id="addDir_container">
+                <?php if($this->errors): ?>
+                    <h3 style="color:darkred;"><?php echo $this->errors; ?></h3>
+                <?php endif; ?>
+                <label for="newDir">Verzeichnis: </label><br>
+                <input id="newDir" class="textbox" type="text" name="newDir[path]" value='<?php echo $this->forminput["path"]; ?>' size="50"><br>
+                <label for="dirLabel">Label: </label><br>
+                <input id="dirLabel" class="textbox" type="text" name="newDir[label]" value='<?php echo $this->forminput["label"]; ?>' size="50">
+                <input type="hidden" name="sent" value="1"><br>
+                <input id="speichern" class="formbutton" type="submit" value="speichern">
+            </div>
+        </form>
+    </div>
+    <br>
+    <?php if(!empty($this->dirSizeTable)) :?>
+        <hr>
+        <?php echo $this->dirSizeTable; ?>
+        <a href="<?php echo $this->url.$this->selectedDir."&scan=1"; ?>" class="formbutton" onclick="return confirm('Scanvorgang starten?');">Scan</a>
+        <a href="<?php echo $this->url.$this->selectedDir."&delete=1"; ?>" class="formbutton" onclick="return confirm('Die Verzeichnis&uuml;berwachung wirklich l&ouml;schen?\nEs werden alle gespeicherten Informationen gel&ouml;scht!');">&Uuml;berwachung l&ouml;schen</a>
+    <?php endif; ?>
+</fieldset>

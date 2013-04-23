@@ -1,0 +1,14 @@
+<div class="lwBoxLeftnavi" onClick="changeUrl('admin.php?obj=admin');">[[[zur&uuml;ck]]]</div>
+<?php if(!empty($this->dirs)) :?>
+    <div class="lwBoxLeftContent">
+        <?php foreach($this->dirs as $dir) :?>
+            <div 
+                class="cNavEntry" 
+                onclick="changeUrl('?obj=directoryobserver&dir=<?php echo urlencode($dir["opt1text"]); ?>');"
+                <?php if($dir["opt1text"] == $this->selectedDir): ?>
+                style="background-color: #0072BB;"
+                <?php endif; ?>
+                ><?php echo $dir["name"]; ?></div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
