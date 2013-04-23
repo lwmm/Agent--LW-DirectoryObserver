@@ -1,0 +1,1 @@
+lw_master tabelle wird genutzt um die liste der "observePathes" zu speichern
