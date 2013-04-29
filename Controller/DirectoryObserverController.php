@@ -28,7 +28,9 @@ class DirectoryObserverController
             die("Das Change-Log Verzeichnis existiert nicht.");
         } catch (\LwDirectoryObserver\Model\ChangeLogDirectoryNotWritableException $exc) {
             die("Das Change-Log Verzeichnis ist nicht beschreibbar.");
-        }   
+        } catch (\LwDirectoryObserver\Model\JqPlotDirectoryNotWritableException $exc) {
+            die("Das Verzeichnis f&uuml;r die JqPlot-Library existiert nicht.");
+        }     
         
         if($saveType == "db") {
             $this->directoryObserver->setCommandHandler(new \LwDirectoryObserver\Model\DbCommandHandler($this->response->getDbObject(), $this->config["path"]["resource"] . "lw_logs/lw_directoryobserver/"));
@@ -91,7 +93,7 @@ class DirectoryObserverController
     {
         $commandHandler = new \AgentDirectoryObserver\Model\CommandHandler($this->response->getDbObject());
         $commandHandler->deleteEntryByPath($path);
-        $this->directoryObserver->deleteAllObserveData($path);
+        $this->directoryObserver->deleteAllObserveData();
         
         \AgentDirectoryObserver\Services\Page::reload(substr(\AgentDirectoryObserver\Services\Page::getUrl(), 0, strpos(\AgentDirectoryObserver\Services\Page::getUrl(), "index.php"))."admin.php?obj=directoryobserver");
     }
